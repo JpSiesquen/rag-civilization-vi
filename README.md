@@ -8,7 +8,7 @@ A Spanish-language assistant for Civilization VI gameplay questions, grounded in
 | --- | --- |
 | `frontend/` | React and TypeScript web app built with Vite. |
 | `importer/` | Node.js and TypeScript configuration for importing Civilopedia entries. |
-| `api/` (planned) | ASP.NET Core API for retrieval and answer generation. |
+| `api/` | ASP.NET Core API for retrieval and answer generation. |
 | `database/` (planned) | SQL Server schema migrations. |
 
 ## Local development
@@ -26,6 +26,16 @@ npm --prefix frontend --cache .npm-cache run dev
 ```
 
 The build type-checks the frontend and writes the production output to `frontend/dist/`. The dev command prints the local URL. The importer configuration is ready for TypeScript source as it is added.
+
+### Run the API
+
+```sh
+dotnet run --project api/CivilizationVI.Rag.Api.csproj
+```
+
+Open [the health endpoint](http://127.0.0.1:5080/health) or run `curl -i http://127.0.0.1:5080/health` from another terminal. The endpoint returns HTTP `200 OK` and `Healthy` when the API is running. Database connectivity will be checked separately when the database is integrated.
+
+In Visual Studio, open `api/CivilizationVI.Rag.Api.csproj` and press **F5** to run with the debugger. The launch profile uses the same local address.
 
 Keep credentials in local environment variables or untracked local configuration and keep the extracted corpus outside the tracked source tree. The repository ignores dependency directories, build outputs and the local npm cache.
 
