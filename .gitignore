@@ -1,0 +1,10 @@
+node_modules/
+dist/
+.npm-cache/
+*.tsbuildinfo
+bin/
+obj/
+.vs/
+.env
+.env.*
+appsettings.Local.json

@@ -22,7 +22,7 @@ The assistant answers general questions about Civilization VI. The chat uses the
 | Data import | Node.js and TypeScript import script targeting SQL Server locally and Azure SQL Database in production |
 | Development and version control | .NET SDK, Visual Studio, SSMS, npm, Git, and GitHub |
 
-The target .NET version and Claude model will be selected during implementation.
+The API targets .NET 11. The Claude model will be selected during implementation.
 
 ## Civilopedia indexing
 
