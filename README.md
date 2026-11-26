@@ -40,6 +40,12 @@ npm.cmd --prefix importer --silent run sample
 
 The sample prints JSON with the Campus entry for each game version and examples of how Steam declares a DLC, a mode, and a scenario. It reads the private copy and writes to standard output.
 
+### Load the Steam sample into local SQL Server
+
+With the schema applied and `CIVILOPEDIA_SNAPSHOT` set as above, run `npm.cmd --prefix importer run load:sample`. The loader uses the installed `sqlcmd` and Windows authentication to write to `CivilizationVI_Rag_Dev` on the local default instance. A second load of the same sample preserves existing entry, fragment, and source IDs.
+
+Run `npm.cmd --prefix importer run test:load` to load the sample twice and verify the saved rows. The test writes to the local development database and leaves the sample available for search development.
+
 ### Run the API
 
 ```sh

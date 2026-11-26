@@ -8,8 +8,10 @@
   },
   "scripts": {
     "check": "tsc",
+    "load:sample": "node load-sample.ts",
     "sample": "node sample.ts",
-    "test": "node --test steam-sample.test.ts"
+    "test": "node --test steam-sample.test.ts",
+    "test:load": "node --test steam-load.test.ts"
   },
   "devDependencies": {
     "@types/node": "24.19.2",
