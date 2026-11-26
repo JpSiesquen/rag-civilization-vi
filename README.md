@@ -66,6 +66,15 @@ sqlcmd -S lpc:. -E -N -C -b -d CivilizationVI_Rag_Dev -i database/check_civilope
 
 Pass `@GameVersion` to `dbo.SearchCivilopedia` using `RULESET_STANDARD`, `RULESET_EXPANSION_1` or `RULESET_EXPANSION_2`. The procedure filters fragments by version before limiting the results.
 
+Apply the context migration and verify it on the local development database.
+
+```powershell
+sqlcmd -S lpc:. -E -N -C -b -d CivilizationVI_Rag_Dev -i database/004_civilopedia_search_context.sql
+sqlcmd -S lpc:. -E -N -C -b -d CivilizationVI_Rag_Dev -i database/check_civilopedia_search_context.sql
+```
+
+Pass active modes in `@ModeKeys` and available packs in `@ContentKeys` as JSON arrays, and pass `@ScenarioKey` for a scenario search. A fragment with several requirements must satisfy each one. A general search excludes scenario fragments, and a scenario search returns evidence scoped to that scenario. The acceptance check uses the Campus sample and creates and removes a synthetic scenario entry.
+
 ### Run the API
 
 ```sh
