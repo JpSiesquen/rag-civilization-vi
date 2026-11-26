@@ -57,6 +57,15 @@ sqlcmd -S lpc:. -E -N -C -b -d CivilizationVI_Rag_Dev -i database/check_civilope
 
 Allow SQL Server to populate the indexes before running the check. `dbo.SearchCivilopedia` returns ranked Spanish fragments with their version, applicability and source references.
 
+Apply the version filter migration and run its acceptance check with the sample loaded.
+
+```powershell
+sqlcmd -S lpc:. -E -N -C -b -d CivilizationVI_Rag_Dev -i database/003_civilopedia_search_version.sql
+sqlcmd -S lpc:. -E -N -C -b -d CivilizationVI_Rag_Dev -i database/check_civilopedia_search_versions.sql
+```
+
+Pass `@GameVersion` to `dbo.SearchCivilopedia` using `RULESET_STANDARD`, `RULESET_EXPANSION_1` or `RULESET_EXPANSION_2`. The procedure filters fragments by version before limiting the results.
+
 ### Run the API
 
 ```sh
