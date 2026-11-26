@@ -46,6 +46,17 @@ With the schema applied and `CIVILOPEDIA_SNAPSHOT` set as above, run `npm.cmd --
 
 Run `npm.cmd --prefix importer run test:load` to load the sample twice and verify the saved rows. The test writes to the local development database and leaves the sample available for search development.
 
+### Verify local full-text retrieval
+
+Add the **Full-Text and Semantic Extractions for Search** feature to the local SQL Server 2022 instance. With the sample loaded, run the migration and acceptance check from the repository root.
+
+```powershell
+sqlcmd -S lpc:. -E -N -C -b -d CivilizationVI_Rag_Dev -i database/002_civilopedia_full_text.sql
+sqlcmd -S lpc:. -E -N -C -b -d CivilizationVI_Rag_Dev -i database/check_civilopedia_search.sql
+```
+
+Allow SQL Server to populate the indexes before running the check. `dbo.SearchCivilopedia` returns ranked Spanish fragments with their version, applicability and source references.
+
 ### Run the API
 
 ```sh
