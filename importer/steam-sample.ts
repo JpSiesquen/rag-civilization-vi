@@ -23,13 +23,13 @@ export type SourceReference = {
   sourceRecordKey: string;
 };
 
-type Applicability = {
+export type Applicability = {
   requiredContentKey: string | null;
   requiredModeKey: string | null;
   requiredScenarioKey: string | null;
 };
 
-type Fragment = Applicability & {
+export type Fragment = Applicability & {
   key: string;
   section: string;
   body: string;
@@ -43,10 +43,10 @@ type DataFile = Applicability & {
 
 type Translation = { text: string; source: SourceReference };
 
-export type CampusEntry = {
+export type CivilopediaEntry = {
   gameKey: string;
   languageCode: string;
-  gameVersion: Version['gameVersion'];
+  gameVersion: string;
   category: string;
   title: string;
   fragments: (Fragment & { position: number })[];
@@ -130,13 +130,13 @@ async function campusDataFiles(read: ReadXml, version: Version): Promise<DataFil
   return files;
 }
 
-export async function normalizeCampus(root: string): Promise<CampusEntry[]> {
+export async function normalizeCampus(root: string): Promise<CivilopediaEntry[]> {
   const read = steamSnapshot(root);
   const district = required(rows(await read(baseDistricts), 'Districts')
     .find(row => row.getAttribute('DistrictType') === campusKey), campusKey);
   const points = required(rows(await read(baseDistricts), 'District_GreatPersonPoints')
     .find(row => row.getAttribute('DistrictType') === campusKey), 'Campus great person points');
-  const entries: CampusEntry[] = [];
+  const entries: CivilopediaEntry[] = [];
 
   for (const version of versions) {
     const textPaths = [baseText];

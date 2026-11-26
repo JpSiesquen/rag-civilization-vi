@@ -46,6 +46,17 @@ With the schema applied and `CIVILOPEDIA_SNAPSHOT` set as above, run `npm.cmd --
 
 Run `npm.cmd --prefix importer run test:load` to load the sample twice and verify the saved rows. The test writes to the local development database and leaves the sample available for search development.
 
+### Import the Spanish Steam corpus locally
+
+Extend `datos-locales/` with the DLC manifests, gameplay and configuration XML and SQL, and XML containing Spanish translations. Preserve the original `Base/` and `DLC/` paths. With `CIVILOPEDIA_SNAPSHOT` set and the database schema applied, run the following commands from the repository root.
+
+```powershell
+npm.cmd --prefix importer run test:corpus
+node importer/corpus.ts --load > datos-locales/informe-importacion.json
+```
+
+Run `node importer/corpus.ts` to produce the report without writing to SQL Server. The report counts prepared entries by version and category and lists missing localized records and manifest or gameplay files that require review. The loader writes the supported entries in batches to `CivilizationVI_Rag_Dev`. Rerun the same command to retry a batch that failed. Keep the report and source files in the Git-ignored `datos-locales/` directory.
+
 ### Verify local full-text retrieval
 
 Add the **Full-Text and Semantic Extractions for Search** feature to the local SQL Server 2022 instance. With the sample loaded, run the migration and acceptance check from the repository root.
@@ -74,6 +85,8 @@ sqlcmd -S lpc:. -E -N -C -b -d CivilizationVI_Rag_Dev -i database/check_civilope
 ```
 
 Pass active modes in `@ModeKeys` and available packs in `@ContentKeys` as JSON arrays, and pass `@ScenarioKey` for a scenario search. A fragment with several requirements must satisfy each one. A general search excludes scenario fragments, and a scenario search returns evidence scoped to that scenario. The acceptance check uses the Campus sample and creates and removes a synthetic scenario entry.
+
+Apply `database/005_civilopedia_search_corpus.sql` for the expanded corpus. This revision ranks fragment IDs first and then reads the selected text and references. A title named explicitly in the question gets priority.
 
 ### Run the API
 

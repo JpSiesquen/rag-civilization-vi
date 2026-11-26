@@ -8,9 +8,11 @@
   },
   "scripts": {
     "check": "tsc",
+    "corpus": "node corpus.ts",
     "load:sample": "node load-sample.ts",
     "sample": "node sample.ts",
     "test": "node --test steam-sample.test.ts",
+    "test:corpus": "node --test steam-corpus.test.ts",
     "test:load": "node --test steam-load.test.ts"
   },
   "devDependencies": {

@@ -1,6 +1,6 @@
 import { spawn } from 'node:child_process';
 import { readFile } from 'node:fs/promises';
-import type { CampusEntry } from './steam-sample.ts';
+import type { CivilopediaEntry } from './steam-sample.ts';
 
 export function runLocalSql(batch: string): Promise<string> {
   return new Promise((resolve, reject) => {
@@ -23,7 +23,7 @@ export function runLocalSql(batch: string): Promise<string> {
   });
 }
 
-export async function loadSteamSample(entries: CampusEntry[]): Promise<void> {
+export async function loadSteamSample(entries: CivilopediaEntry[]): Promise<void> {
   const loadSql = await readFile(new URL('../database/load_steam_sample.sql', import.meta.url), 'utf8');
   const jsonHex = Buffer.from(JSON.stringify(entries), 'utf16le').toString('hex');
   // Hex keeps private XML text out of SQL syntax and preserves Unicode over stdin.
