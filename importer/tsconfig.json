@@ -5,6 +5,7 @@
     "module": "NodeNext",
     "types": ["node"],
     "strict": true,
+    "allowImportingTsExtensions": true,
     "noEmit": true
   }
 }

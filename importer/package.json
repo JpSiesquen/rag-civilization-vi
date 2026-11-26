@@ -6,8 +6,16 @@
   "engines": {
     "node": "24.x"
   },
+  "scripts": {
+    "check": "tsc",
+    "sample": "node sample.ts",
+    "test": "node --test steam-sample.test.ts"
+  },
   "devDependencies": {
     "@types/node": "24.19.2",
     "typescript": "7.0.2"
+  },
+  "dependencies": {
+    "@xmldom/xmldom": "0.9.12"
   }
 }

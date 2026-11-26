@@ -26,7 +26,7 @@ The API targets .NET 11. The Claude model will be selected during implementation
 
 ## Civilopedia indexing
 
-Prepare a private local copy of the required Civilization VI files from the Steam installation. The copy preserves relative paths for the Spanish text, structured gameplay data, and content manifests. Keep it outside the public repository and use it as the importer's input. Refresh the copy deliberately when the game data changes, leaving the Steam installation untouched.
+Prepare a private local copy of the required Civilization VI files from the Steam installation in the project's Git-ignored `datos-locales/` directory. The copy preserves relative paths for the Spanish text, structured gameplay data, and content manifests. The importer reads this copy. Refresh it deliberately when the game data changes, leaving the Steam installation untouched.
 
 The inventory identified Spanish records for the base game and both expansions, with separate files for optional modes, leader packs, and scenarios. Manifests determine which files are active for each game version or additional content.
 

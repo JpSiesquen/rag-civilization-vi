@@ -7,7 +7,7 @@ A Spanish-language assistant for Civilization VI gameplay questions, grounded in
 | Path | Purpose |
 | --- | --- |
 | `frontend/` | React and TypeScript web app built with Vite. |
-| `importer/` | Node.js and TypeScript configuration for importing Civilopedia entries from a private working copy of the Steam files. |
+| `importer/` | TypeScript importer for Civilopedia entries from a private working copy of the Steam files. |
 | `api/` | ASP.NET Core API for retrieval and answer generation. |
 | `database/` | SQL Server schema migrations. |
 
@@ -25,7 +25,20 @@ npm --prefix frontend --cache .npm-cache run build
 npm --prefix frontend --cache .npm-cache run dev
 ```
 
-The build type-checks the frontend and writes the production output to `frontend/dist/`. The dev command prints the local URL. The importer configuration is ready for TypeScript source as it is added.
+The build type-checks the frontend and writes the production output to `frontend/dist/`. The dev command prints the local URL.
+
+### Verify the Steam sample
+
+With the private Steam sample in `datos-locales/`, run these commands from the repository root in PowerShell.
+
+```powershell
+$env:CIVILOPEDIA_SNAPSHOT = (Resolve-Path datos-locales).Path
+npm.cmd --prefix importer run check
+npm.cmd --prefix importer test
+npm.cmd --prefix importer --silent run sample
+```
+
+The sample prints JSON with the Campus entry for each game version and examples of how Steam declares a DLC, a mode, and a scenario. It reads the private copy and writes to standard output.
 
 ### Run the API
 
@@ -50,6 +63,6 @@ dotnet run --project api/CivilizationVI.Rag.Api.csproj
 
 In the Development environment, open [the database health endpoint](http://127.0.0.1:5080/health/database). It returns HTTP `200 OK` and `Healthy` when the API can query the entries table, including when the table is empty. It returns HTTP `503 Service Unavailable` and `Unhealthy` if the connection is missing or the query fails.
 
-Keep credentials in local environment variables or untracked local configuration. Keep the private working copy and extracted corpus outside the tracked source tree. The repository ignores dependency directories, build outputs and the local npm cache.
+Keep credentials in local environment variables or untracked local configuration. Keep the private working copy and any extracts under `datos-locales/`. Git ignores that directory along with dependency directories, build outputs and the local npm cache.
 
 See [ARCHITECTURE.md](ARCHITECTURE.md) for the RAG design and deployment targets.
