@@ -9,7 +9,7 @@ A Spanish-language assistant for Civilization VI gameplay questions, grounded in
 | `frontend/` | React and TypeScript web app built with Vite. |
 | `importer/` | Node.js and TypeScript configuration for importing Civilopedia entries from a private working copy of the Steam files. |
 | `api/` | ASP.NET Core API for retrieval and answer generation. |
-| `database/` (planned) | SQL Server schema migrations. |
+| `database/` | SQL Server schema migrations. |
 
 ## Local development
 
@@ -33,9 +33,22 @@ The build type-checks the frontend and writes the production output to `frontend
 dotnet run --project api/CivilizationVI.Rag.Api.csproj
 ```
 
-Open [the health endpoint](http://127.0.0.1:5080/health) or run `curl -i http://127.0.0.1:5080/health` from another terminal. The endpoint returns HTTP `200 OK` and `Healthy` when the API is running. Database connectivity will be checked separately when the database is integrated.
+Open [the health endpoint](http://127.0.0.1:5080/health) or run `curl -i http://127.0.0.1:5080/health` from another terminal. The endpoint returns HTTP `200 OK` and `Healthy` when the API is running.
 
 In Visual Studio, open `api/CivilizationVI.Rag.Api.csproj` and press **F5** to run with the debugger. The launch profile uses the same local address.
+
+### Set up the development database
+
+Create an empty `CivilizationVI_Rag_Dev` database on your local SQL Server instance. In SSMS, open [`database/001_initial_schema.sql`](database/001_initial_schema.sql), select that database in the editor toolbar, and execute the migration once. It creates the tables for Civilopedia entries, searchable fragments, and source references.
+
+On Windows, set the connection string in the PowerShell session before starting the API. The example uses Windows authentication and trusts the server certificate for the local instance.
+
+```powershell
+$env:ConnectionStrings__Civilopedia = 'Server=lpc:.;Database=CivilizationVI_Rag_Dev;Integrated Security=True;Encrypt=True;TrustServerCertificate=True'
+dotnet run --project api/CivilizationVI.Rag.Api.csproj
+```
+
+In the Development environment, open [the database health endpoint](http://127.0.0.1:5080/health/database). It returns HTTP `200 OK` and `Healthy` when the API can query the entries table, including when the table is empty. It returns HTTP `503 Service Unavailable` and `Unhealthy` if the connection is missing or the query fails.
 
 Keep credentials in local environment variables or untracked local configuration. Keep the private working copy and extracted corpus outside the tracked source tree. The repository ignores dependency directories, build outputs and the local npm cache.
 
