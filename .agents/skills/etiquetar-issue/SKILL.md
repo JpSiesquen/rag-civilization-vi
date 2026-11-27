@@ -23,21 +23,12 @@ Usa `F-N · Entregable concreto`, donde `F` es la fase y `N` el orden del trabaj
 
 ## Cuerpo
 
-```markdown
-## Contexto
-La búsqueda debe conservar la versión que el jugador eligió.
-Depende de #12.
+- Usa la [plantilla completa](assets/issue-completa.md) para issues que se van a implementar pronto. Incluye contexto, tareas y un criterio de aceptación comprobable.
+- Usa la [plantilla breve](assets/issue-breve.md) para fases lejanas de un backlog. Incluye contexto, un criterio de aceptación preliminar y las dependencias conocidas. Completa el detalle antes de implementar.
 
-## Tareas
-- [ ] Aplicar el filtro de versión antes de limitar los resultados.
+Sustituye las indicaciones de la plantilla con datos del caso y omite la línea de dependencia cuando no aplique. Usa ejemplos ficticios cuando hagan falta. Mantén los apuntes privados, el corpus local y las credenciales fuera del contenido público.
 
-## Criterio de aceptación
-Con dos fragmentos equivalentes de versiones distintas, la búsqueda solo devuelve el fragmento de la versión seleccionada.
-```
-
-Explica el problema y su impacto. Escribe tareas concretas y un criterio comprobable con un ejemplo, una prueba o una observación. Usa ejemplos ficticios cuando hagan falta. Mantén los apuntes privados, el corpus local y las credenciales fuera del contenido público.
-
-Si el usuario pide armar un backlog completo con más de dos fases o unas cincuenta issues, representa todas las fases. Detalla las tareas cercanas con contexto, checklist, dependencias y criterio de aceptación. Resume las lejanas con contexto, criterio preliminar y dependencias conocidas. Completa su detalle antes de empezar a implementarlas.
+Si el usuario pide armar un backlog completo con más de dos fases o unas cincuenta issues, representa todas las fases y elige la plantilla según la cercanía del trabajo.
 
 ## Revisar y cerrar
 
